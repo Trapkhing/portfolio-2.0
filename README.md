@@ -22,7 +22,7 @@ A clean, responsive portfolio website built with React and styled with a combina
 
 1. Clone the repository
    ```
-   git clone https://github.com/yourusername/portfolio.git
+   git clone https://github.com/Trapkhing/portfolio-2.0.git
    cd portfolio
    ```
 
