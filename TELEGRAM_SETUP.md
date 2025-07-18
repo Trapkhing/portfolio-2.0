@@ -27,8 +27,8 @@ This document explains how to set up a Telegram bot to receive contact form subm
 2. Replace the values with your actual bot token and chat ID:
 
 ```
-REACT_APP_TELEGRAM_BOT_TOKEN=123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ
-REACT_APP_TELEGRAM_CHAT_ID=987654321
+VITE_TELEGRAM_BOT_TOKEN=123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ
+VITE_TELEGRAM_CHAT_ID=987654321
 ```
 
 **Important:** Never commit your `.env` file to version control. It's already added to `.gitignore`.
@@ -43,8 +43,8 @@ REACT_APP_TELEGRAM_CHAT_ID=987654321
 
 - The bot token is now stored in environment variables for better security
 - For production deployment:
-  - Netlify: Add environment variables in Site settings > Build & deploy > Environment
-  - Vercel: Add environment variables in Project settings > Environment Variables
+  - Netlify: Add environment variables in Site settings > Build & deploy > Environment (use VITE_ prefix)
+  - Vercel: Add environment variables in Project settings > Environment Variables (use VITE_ prefix)
   - GitHub Pages: Use a serverless function since GitHub Pages doesn't support environment variables
 - Consider implementing rate limiting to prevent spam
 - You may want to add CAPTCHA to your form for additional security

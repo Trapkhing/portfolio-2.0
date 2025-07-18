@@ -51,8 +51,8 @@ To receive contact form submissions in Telegram:
 2. Get your bot token and chat ID (see TELEGRAM_SETUP.md for detailed instructions)
 3. Add these to your `.env` file:
    ```
-   REACT_APP_TELEGRAM_BOT_TOKEN=your_bot_token
-   REACT_APP_TELEGRAM_CHAT_ID=your_chat_id
+   VITE_TELEGRAM_BOT_TOKEN=your_bot_token
+   VITE_TELEGRAM_CHAT_ID=your_chat_id
    ```
 
 ## 🎨 Customization

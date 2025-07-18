@@ -5,8 +5,14 @@
  */
 export const sendToTelegram = async (message) => {
   // Use environment variables
-  const BOT_TOKEN = process.env.REACT_APP_TELEGRAM_BOT_TOKEN;
-  const CHAT_ID = process.env.REACT_APP_TELEGRAM_CHAT_ID;
+  // Use Vite environment variables
+  const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+  const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+  
+  console.log('Environment variables:', { 
+    botToken: BOT_TOKEN ? 'Set' : 'Not set', 
+    chatId: CHAT_ID ? 'Set' : 'Not set' 
+  });
   
   if (!BOT_TOKEN || !CHAT_ID) {
     throw new Error('Telegram bot token or chat ID not configured');
