@@ -1,12 +1,14 @@
 # Modern Portfolio Website
 
-A clean, responsive portfolio website built with React and styled with a combination of Tailwind CSS and custom CSS variables. Features dark mode, smooth animations, and a contact form that sends messages directly to Telegram.
+A clean, responsive portfolio website built with React and styled with a combination of Tailwind CSS and custom CSS variables. Features dark mode, smooth animations, a blog powered by Sanity CMS, and a contact form that sends messages directly to Telegram.
 
 ## 📋 Features
 
 - Responsive design that works on all devices
 - Dark/Light mode toggle
 - Project showcase with filterable categories
+- Blog section powered by Sanity CMS
+- Recent posts carousel on homepage
 - Skills section with visual representation
 - Contact form connected to Telegram
 - SEO optimized with React Helmet
@@ -17,6 +19,7 @@ A clean, responsive portfolio website built with React and styled with a combina
 
 - Node.js (v14 or later)
 - npm or yarn
+- Sanity account (for blog functionality)
 
 ### Installation
 
@@ -36,11 +39,11 @@ A clean, responsive portfolio website built with React and styled with a combina
    ```
    cp .env.example .env
    ```
-   - Edit `.env` with your own values (see Telegram setup below)
+   - Edit `.env` with your own values (see setup sections below)
 
 4. Start the development server
    ```
-   npm start
+   npm run dev
    ```
 
 ## 🤖 Telegram Contact Form Setup
@@ -55,6 +58,21 @@ To receive contact form submissions in Telegram:
    VITE_TELEGRAM_CHAT_ID=your_chat_id
    ```
 
+## 📝 Sanity CMS Setup
+
+To use the blog functionality:
+
+1. Create a Sanity account at [sanity.io](https://www.sanity.io/)
+2. Create a new project
+3. Install Sanity CLI: `npm install -g @sanity/cli`
+4. Initialize Sanity in the sanity directory: `cd sanity && sanity init`
+5. Deploy the Sanity Studio: `sanity deploy`
+6. Add your Sanity project ID and dataset to your `.env` file:
+   ```
+   VITE_SANITY_PROJECT_ID=your_project_id
+   VITE_SANITY_DATASET=production
+   ```
+
 ## 🎨 Customization
 
 ### Content
@@ -65,6 +83,7 @@ Edit the data in the following files to customize your portfolio:
 - `src/pages/AboutSection.jsx` - About me and skills
 - `src/pages/ProjectsSection.jsx` - Project showcase
 - `src/pages/ContactSection.jsx` - Contact information
+- `src/pages/RecentPostsSection.jsx` - Blog posts carousel
 
 ### Styling
 

@@ -1,0 +1,10 @@
+# Sanity specific
+/dist
+/node_modules
+/.sanity
+/static
+
+# Environment variables
+.env
+.env.*
+!.env.example

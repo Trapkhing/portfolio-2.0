@@ -335,3 +335,11 @@ input::placeholder, textarea::placeholder {
 [data-theme="dark"] textarea::placeholder {
   color: rgba(240, 240, 240, 0.6);
 }
+
+.prose pre {
+  background-color: #0d1117;
+  color: #c9d1d9;
+  font-family: monospace;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}

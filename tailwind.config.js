@@ -57,7 +57,51 @@ export default {
         fadeIn: 'fadeIn 0.3s ease-in-out',
         float: 'float 3s ease-in-out infinite',
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            color: theme('colors.text'),
+            a: {
+              color: theme('colors.accent'),
+              '&:hover': {
+                color: theme('colors.accent-dark'),
+              },
+            },
+            h1: { color: theme('colors.text') },
+            h2: { color: theme('colors.text') },
+            h3: { color: theme('colors.text') },
+            strong: { color: theme('colors.text') },
+            code: { color: theme('colors.accent-dark') },
+            blockquote: {
+              borderLeftColor: theme('colors.accent'),
+              color: theme('colors.text'),
+            },
+          },
+        },
+        dark: {
+          css: {
+            color: theme('colors.gray.300'),
+            a: {
+              color: theme('colors.accent'),
+              '&:hover': {
+                color: theme('colors.accent-dark'),
+              },
+            },
+            h1: { color: theme('colors.gray.100') },
+            h2: { color: theme('colors.gray.200') },
+            h3: { color: theme('colors.gray.300') },
+            strong: { color: theme('colors.gray.100') },
+            code: { color: theme('colors.accent') },
+            blockquote: {
+              borderLeftColor: theme('colors.accent'),
+              color: theme('colors.gray.300'),
+            },
+          },
+        },
+      }),
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }
