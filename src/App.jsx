@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Blog from './pages/Blog'
 import BlogDetail from './pages/BlogDetail'
 
@@ -14,6 +14,24 @@ import ProjectsSection from './pages/ProjectsSection'
 import RecentPostsSection from './pages/RecentPostsSection'
 import ContactSection from './pages/ContactSection'
 
+function ScrollToHashOnLoad() {
+  const location = useLocation()
+
+  useEffect(() => {
+    const hash = location.hash
+    if (hash) {
+      // Wait for DOM to render
+      setTimeout(() => {
+        const element = document.querySelector(hash)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    }
+  }, [location])
+
+  return null
+}
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -33,6 +51,7 @@ function App() {
         keywords="web developer, frontend, React, JavaScript, portfolio, projects, Evans, Kumi"
       />
       <Navbar />
+      <ScrollToHashOnLoad />
       <Routes>
         <Route
           path="/"
