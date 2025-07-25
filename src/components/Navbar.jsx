@@ -44,9 +44,9 @@ const Navbar = () => {
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Projects', href: '#projects' },
-    { name: 'Recent Posts', href: '#recent-posts' },
     { name: 'Contact', href: '#contact' },
-    { name: 'Blog', href: '/blog' }
+    { name: 'Blog', href: '/blog' },
+    { name: 'Pricing', href: '/pricing' }
   ]
 
   const handleNavClick = (e, href) => {

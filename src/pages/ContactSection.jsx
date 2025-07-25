@@ -1,14 +1,25 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa'
 import { sendToTelegram } from '../utils/telegramService'
+import { useLocation } from 'react-router-dom'
 
 const ContactSection = ({ id }) => {
+  const location = useLocation()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   })
+
+  useEffect(() => {
+    if (location.state && location.state.plan) {
+      setFormData(prev => ({
+        ...prev,
+        subject: `Inquiry about the ${location.state.plan} Plan`
+      }))
+    }
+  }, [location.state])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
   

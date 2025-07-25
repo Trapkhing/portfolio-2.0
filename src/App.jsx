@@ -13,6 +13,7 @@ import AboutSection from './pages/AboutSection'
 import ProjectsSection from './pages/ProjectsSection'
 import RecentPostsSection from './pages/RecentPostsSection'
 import ContactSection from './pages/ContactSection'
+import Pricing from './pages/Pricing'
 import NotFound from './pages/NotFound'
 
 function ScrollToHashOnLoad() {
@@ -79,6 +80,7 @@ function App() {
         />
         <Route path="/blog" element={<Layout><Blog /></Layout>} />
         <Route path="/blog/:slug" element={<Layout><BlogDetail /></Layout>} />
+        <Route path="/pricing" element={<Layout><Pricing /></Layout>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
