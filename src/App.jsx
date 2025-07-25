@@ -59,8 +59,8 @@ function App() {
     <>
       <SEO
         title="Evans | Web Developer"
-        description="Professional portfolio of Evans Kumi, a frontend web developer specializing in React and modern web technologies."
-        keywords="web developer, frontend, React, JavaScript, portfolio, projects, Evans, Kumi"
+        description="Professional portfolio of Evans, a frontend web developer specializing in React and modern web technologies."
+        keywords="web developer, frontend, React, JavaScript, portfolio, projects, Evans"
       />
       <ScrollToHashOnLoad />
       <Routes>

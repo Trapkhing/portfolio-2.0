@@ -114,4 +114,4 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - Icons: [React Icons](https://react-icons.github.io/react-icons/)
 - Font: [Inter](https://fonts.google.com/specimen/Inter)
-- Original design inspiration: [Evans Kumi](https://github.com/Trapkhing)
+- Original design inspiration: [Evans](https://github.com/Trapkhing)

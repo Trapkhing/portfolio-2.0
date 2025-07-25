@@ -10,7 +10,7 @@ const SEO = ({
 }) => {
   const defaultTitle = 'My Portfolio'
   const defaultDescription = 'Personal portfolio website showcasing my projects and skills.'
-  const defaultKeywords = 'portfolio, developer, web development, react, Evans, Kumi'
+  const defaultKeywords = 'portfolio, developer, web development, react, Evans'
   const defaultImage = '/images/og-default.png';
   const defaultUrl = 'https://evans-kumi-2.vercel.app'
 
