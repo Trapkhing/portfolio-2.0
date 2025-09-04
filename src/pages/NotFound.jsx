@@ -2,15 +2,15 @@ import { Link } from 'react-router-dom'
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white px-4 text-center">
-      <h1 className="text-6xl font-extrabold text-gray-800 mb-4 animate-bounce font-mono">404</h1>
-      <p className="text-xl text-gray-600 mb-2">Oops! Page not found.</p>
-      <p className="text-gray-500 mb-6">The page you are looking for doesn’t exist or has been moved.</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[var(--bg)] px-4 text-center pt-16">
+      <h1 className="text-4xl md:text-6xl font-medium text-[var(--text)] mb-4">404</h1>
+      <p className="text-lg text-[var(--muted)] mb-2">Page not found</p>
+      <p className="text-[var(--muted)] mb-8">The page you're looking for doesn't exist.</p>
       <Link
         to="/"
-        className="px-6 py-3 bg-[var(--accent-color)] text-white rounded-md hover:bg-opacity-90 transition"
+        className="text-[var(--text)] hover:text-[var(--muted)] transition-colors underline underline-offset-4"
       >
-        Go Home
+        Go home
       </Link>
     </div>
   )

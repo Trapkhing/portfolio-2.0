@@ -1,44 +1,37 @@
 const HomeSection = ({ id }) => {
   return (
-    <section id={id} className="pt-10 flex items-center">
+    <section id={id} className="section pt-8 md:pt-16">
       <div className="container">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-          <div className="md:w-1/2 md:pl-6">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Hi, I'm <span className="text-accent">Evans</span>
-            </h1>
-            <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-600">
-              Frontend Developer
-            </h2>
-            <p className="text-lg mb-8 text-gray-700">
-              I build exceptional digital experiences with modern web technologies.
+        <div className="max-w-lg">
+          <p className="text-sm text-[var(--muted)] mb-4">Hey there 👋</p>
+          <h1 className="text-3xl md:text-4xl font-medium text-[var(--text)] mb-4 md:mb-6 leading-tight">
+            I'm Evans, a developer who cares about the details
+          </h1>
+          <p className="text-base md:text-lg text-[var(--muted)] mb-6 md:mb-8 leading-relaxed">
+            I craft digital experiences that feel natural and work beautifully. 
+            Currently building things with React while exploring the intersection 
+            of design and code.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+            <a
+              href="#projects"
+              className="text-[var(--text)] hover:text-[var(--muted)] transition-colors underline underline-offset-4"
+            >
+              See what I've built
+            </a>
+            <a
+              href="#contact"
+              className="text-[var(--muted)] hover:text-[var(--text)] transition-colors"
+            >
+              Let's work together
+            </a>
+          </div>
+          
+          <div className="mt-12 pt-8 border-t border-[var(--border)]">
+            <p className="text-sm text-[var(--muted)]">
+              Based in Ghana 🇬🇭 • Available for freelance
             </p>
-            <div className="flex gap-4">
-              <a
-                href="#projects"
-                className="bg-accent text-white px-6 py-3 rounded-md font-medium hover:bg-accent/90 transition-colors"
-              >
-                View My Work
-              </a>
-              <a
-                href="#contact"
-                className="border border-accent text-accent px-6 py-3 rounded-md font-medium hover:bg-accent/10 transition-colors"
-              >
-                Contact Me
-              </a>
-            </div>
           </div>
-          {/*
-          <div className="md:w-1/2 flex justify-center">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-accent/10 overflow-hidden border-8 border-accent/20">
-              <img
-                src="https://via.placeholder.com/400"
-                alt="Profile"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-          */}
         </div>
       </div>
     </section>

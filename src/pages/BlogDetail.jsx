@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom' 
+import { useParams, Link } from 'react-router-dom'
 import { PortableText } from '@portabletext/react'
 import { client } from '../../lib/sanity'
-import { getReadingTime } from '../utils/readingTime'
-import SEO from '../components/SEO'
-import NotFound from './NotFound'
 
 const BlogDetail = () => {
   const { slug } = useParams()
   const [post, setPost] = useState(null)
-  const [notFound, setNotFound] = useState(false)
 
   useEffect(() => {
     client
@@ -18,179 +14,119 @@ const BlogDetail = () => {
           title,
           slug,
           publishedAt,
-          author,
-          categories,
-          mainImage { asset->{url} },
-          content[]{
-            ...,
-            asset->
-          }
+          content
         }`,
         { slug }
       )
-      .then((data) => {
-        if (!data) {
-          setNotFound(true)
-        } else {
-          setPost(data)
-        }
-      })
-      .catch((error) => {
-        console.error(error)
-        setNotFound(true)
-      })
+      .then((data) => setPost(data))
+      .catch(console.error)
   }, [slug])
 
-  if (notFound) {
-    return <NotFound />
-  }
-
-  if (!post) {
-    return <p className="text-center py-10">Loading blog...</p>
-  }
-
-  const readingTime = getReadingTime(post.content)
+  if (!post) return (
+    <div className="min-h-screen bg-[var(--bg)] pt-16">
+      <div className="container py-16">
+        <p className="text-[var(--muted)]">Loading...</p>
+      </div>
+    </div>
+  )
 
   const portableComponents = {
-        types: {
-        image: ({ value }) => {
-          if (!value?.asset?.url) return null
-          return (
-            <img
-              src={value.asset.url}
-              alt={value.alt || 'Blog content image'}
-              loading="lazy"
-              className="my-6 w-full rounded-lg shadow-md"
-            />
-          )
-        },
-        code: ({ value }) => (
-          <pre className="bg-[#0d1117] text-[#c9d1d9] font-mono p-4 rounded-md overflow-x-auto text-sm leading-relaxed">
-            <code>{value.code}</code>
-          </pre>
-        ),
+    block: {
+      h1: ({ children }) => (
+        <h1 className="text-2xl font-medium text-[var(--text)] mt-8 mb-4">{children}</h1>
+      ),
+      h2: ({ children }) => (
+        <h2 className="text-xl font-medium text-[var(--text)] mt-6 mb-3">{children}</h2>
+      ),
+      normal: ({ children }) => (
+        <p className="text-[var(--text)] mb-4 leading-relaxed">{children}</p>
+      ),
+      blockquote: ({ children }) => (
+        <blockquote className="border-l-2 border-[var(--border)] pl-4 text-[var(--muted)] italic my-4">
+          {children}
+        </blockquote>
+      ),
+    },
+    list: {
+      bullet: ({ children }) => (
+        <ul className="list-disc list-inside text-[var(--text)] mb-4 space-y-1">{children}</ul>
+      ),
+      number: ({ children }) => (
+        <ol className="list-decimal list-inside text-[var(--text)] mb-4 space-y-1">{children}</ol>
+      ),
+    },
+    listItem: {
+      bullet: ({ children }) => (
+        <li className="text-[var(--text)]">{children}</li>
+      ),
+      number: ({ children }) => (
+        <li className="text-[var(--text)]">{children}</li>
+      ),
+    },
+    marks: {
+      link: ({ value, children }) => (
+        <a
+          href={value?.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[var(--text)] underline underline-offset-2"
+        >
+          {children}
+        </a>
+      ),
+      strong: ({ children }) => (
+        <strong className="font-medium text-[var(--text)]">{children}</strong>
+      ),
+    },
+    types: {
+      image: ({ value }) => {
+        if (!value?.asset?.url) return null
+        return (
+          <img
+            src={value.asset.url}
+            alt={value.alt || 'Blog image'}
+            className="w-full rounded-lg my-6"
+          />
+        )
       },
-      block: {
-        h1: ({ children }) => (
-          <h1 className="text-4xl font-bold text-[var(--text-color)] mt-8 mb-4">
-            {children}
-          </h1>
-        ),
-        h2: ({ children }) => (
-          <h2 className="text-3xl font-semibold text-[var(--text-color)] mt-6 mb-4">
-            {children}
-          </h2>
-        ),
-        h3: ({ children }) => (
-          <h3 className="text-2xl font-medium text-[var(--text-color)] mt-4 mb-3">
-            {children}
-          </h3>
-        ),
-        normal: ({ children }) => (
-          <p className="mb-4 leading-relaxed text-[var(--text-color)]">
-            {children}
-          </p>
-        ),
-        blockquote: ({ children }) => (
-          <blockquote className="border-l-4 border-[var(--accent-color)] pl-4 italic opacity-80 my-4">
-            {children}
-          </blockquote>
-        ),
-      },
-      marks: {
-        link: ({ value, children }) => (
-          <a
-            href={value?.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[var(--accent-color)] underline hover:opacity-80"
-          >
-            {children}
-          </a>
-        ),
-        strong: ({ children }) => (
-          <strong className="font-semibold text-[var(--text-color)]">{children}</strong>
-        ),
-        em: ({ children }) => (
-          <em className="italic opacity-90 text-[var(--text-color)]">{children}</em>
-        ),
-      },
-      list: {
-        bullet: ({ children }) => (
-          <ul className="list-disc pl-6 mb-4 text-[var(--text-color)] space-y-2">
-            {children}
-          </ul>
-        ),
-        number: ({ children }) => (
-          <ol className="list-decimal pl-6 mb-4 text-[var(--text-color)] space-y-2">
-            {children}
-          </ol>
-        ),
-      },
-      }
-
-  const seoTitle = post.title
-  const seoDescription = post.content?.[0]?.children?.[0]?.text || `Read "${post.title}" by ${post.author}`
-  const seoImage = post.mainImage?.asset?.url || '/images/og-default.png'
-  const seoUrl = `https://evans-kumi-2.vercel.app/blog/${post.slug?.current}`
+      code: ({ value }) => (
+        <pre className="bg-[var(--border)] text-[var(--text)] p-4 rounded-lg overflow-x-auto text-sm my-4">
+          <code>{value.code}</code>
+        </pre>
+      ),
+    },
+  }
 
   return (
-    <>
-      <SEO
-        title={seoTitle}
-        description={seoDescription}
-        image={seoImage}
-        url={seoUrl}
-        type="article"
-      />
+    <div className="min-h-screen bg-[var(--bg)] pt-16">
+      <div className="container py-16">
+        <Link
+          to="/blog"
+          className="text-sm text-[var(--muted)] hover:text-[var(--text)] transition-colors mb-8 inline-block"
+        >
+          ← Back
+        </Link>
 
-      <section className="section">
-        <div className="container max-w-3xl mx-auto px-4">
-          <Link
-            to="/blog"
-            className="text-[var(--accent-color)] hover:underline mb-6 inline-block text-sm"
-          >
-            ← Back to Blog
-          </Link>
+        <article className="max-w-2xl">
+          <header className="mb-8">
+            <h1 className="text-2xl font-medium text-[var(--text)] mb-2">
+              {post.title}
+            </h1>
+            <time className="text-sm text-[var(--muted)]">
+              {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </time>
+          </header>
 
-          {post.mainImage?.asset?.url && (
-            <img
-              src={post.mainImage.asset.url}
-              alt={post.title}
-              loading="lazy"
-              className="w-full h-auto rounded-lg shadow mb-6"
-            />
-          )}
-
-          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-[var(--text-color)]">
-            {post.title}
-          </h1>
-
-          <p className="opacity-70 mb-2 text-sm text-[var(--text-color)]">
-            Published: {new Date(post.publishedAt).toLocaleDateString()} · by: {post.author}
-          </p>
-
-          <p className="opacity-70 mb-4 text-sm text-[var(--text-color)]">
-            {readingTime}
-          </p>
-
-          <div className="flex flex-wrap gap-2 mb-6">
-            {(post.categories || []).map((tag, i) => (
-              <span
-                key={i}
-                className="bg-[rgba(76,175,80,0.15)] text-[var(--accent-color)] px-3 py-1 rounded-full text-xs font-medium"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <article className="prose prose-lg dark:prose-invert max-w-none">
+          <div className="max-w-none">
             <PortableText value={post.content} components={portableComponents} />
-          </article>
-        </div>
-      </section>
-    </>
+          </div>
+        </article>
+      </div>
+    </div>
   )
 }
 

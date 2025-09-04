@@ -1,40 +1,35 @@
 const AboutSection = ({ id }) => {
   const skills = [
-    'HTML',
-    'CSS',
-    'JavaScript',
-    'React',
-    'Tailwind CSS',
-    'Git',
-    'Figma',
-    'AI Automation',
-    'Telegram Bot Dev',
-    'Firebase',
-    'Sanity CMS'
+    'React', 'JavaScript', 'TypeScript', 'Tailwind CSS', 
+    'Node.js', 'Firebase', 'Sanity CMS','Python'
   ]
 
   return (
     <section id={id} className="section">
       <div className="container">
-        <h2 className="section-title">About Me</h2>
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid gap-8 md:grid-cols-2 md:gap-16">
           <div>
-            <h3 className="text-xl font-semibold mb-4">Who I Am</h3>
-            <p className="mb-4">
-              I'm a frontend developer and automation enthusiast passionate about building modern, responsive user interfaces and digital experiences.
-            </p>
-            <p className="mb-4">
-              I specialize in React and Tailwind CSS, and I love working with tools like Firebase, Sanity CMS, and automation platforms like n8n. Whether it's crafting portfolios, launching SaaS tools, or automating business flows with Telegram bots, I’m always exploring what’s next.
-            </p>
-            <p>
-              Outside of coding, I’m always looking for ways to simplify processes with AI and automation.
-            </p>
+            <h2 className="text-xl md:text-2xl font-medium text-[var(--text)] mb-4 md:mb-6">About</h2>
+            <div className="space-y-4 text-[var(--muted)] leading-relaxed">
+              <p>
+                I'm a frontend developer passionate about creating clean, 
+                functional web experiences.
+              </p>
+              <p>
+                I work with modern technologies to build responsive applications 
+                that solve real problems.
+              </p>
+            </div>
           </div>
+          
           <div>
-            <h3 className="text-xl font-semibold mb-4">My Skills</h3>
-            <div className="flex flex-wrap gap-3">
+            <h3 className="text-base md:text-lg font-medium text-[var(--text)] mb-3 md:mb-4">Technologies</h3>
+            <div className="flex flex-wrap gap-2">
               {skills.map((skill, index) => (
-                <span key={index} className="tech-tag">
+                <span 
+                  key={index}
+                  className="text-xs md:text-sm text-[var(--muted)] px-2 md:px-3 py-1 border border-[var(--border)] rounded-full"
+                >
                   {skill}
                 </span>
               ))}

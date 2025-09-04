@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom'
 import { client } from '../../lib/sanity'
 import { getReadingTime } from '../utils/readingTime'
 
-const POSTS_PER_PAGE = 4
-
 const Blog = () => {
   const [posts, setPosts] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
+  const [loading, setLoading] = useState(true)
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [allCategories, setAllCategories] = useState([])
 
@@ -20,119 +18,83 @@ const Blog = () => {
         publishedAt,
         excerpt,
         categories,
-        mainImage {
-          asset->{ url }
-        },
         content
       }`)
       .then((data) => {
         setPosts(data)
         const categories = new Set(data.flatMap(post => post.categories || []))
         setAllCategories(['All', ...Array.from(categories)])
+        setLoading(false)
       })
-      .catch(console.error)
+      .catch(() => setLoading(false))
   }, [])
 
-  const filteredPosts =
-    selectedCategory === 'All'
-      ? posts
-      : posts.filter((post) =>
-          post.categories?.includes(selectedCategory)
-        )
+  const filteredPosts = posts
 
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE)
-  const indexOfLastPost = currentPage * POSTS_PER_PAGE
-  const indexOfFirstPost = indexOfLastPost - POSTS_PER_PAGE
-  const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost)
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[var(--bg)] pt-16">
+        <div className="container py-16">
+          <div className="mb-12">
+            <h1 className="text-3xl font-medium text-[var(--text)] mb-4">Writing</h1>
+            <p className="text-[var(--muted)]">Thoughts on development and design</p>
+          </div>
+          <div className="flex justify-center py-12">
+            <div className="w-6 h-6 border-2 border-[var(--border)] border-t-[var(--text)] rounded-full animate-spin"></div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <section className="section">
-      <div className="container">
-        <h2 className="section-title">Blog</h2>
+    <div className="min-h-screen bg-[var(--bg)] pt-16">
+      <div className="container py-16">
+        <div className="mb-12">
+          <h1 className="text-3xl font-medium text-[var(--text)] mb-4">Writing</h1>
+          <p className="text-[var(--muted)]">Thoughts on development and design</p>
+        </div>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap gap-3 mb-8">
-          {allCategories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => {
-                setSelectedCategory(cat)
-                setCurrentPage(1)
-              }}
-              className={`px-4 py-1 rounded-full text-sm font-medium border ${
-                selectedCategory === cat
-                  ? 'bg-[var(--accent-color)] text-white border-[var(--accent-color)]'
-                  : 'border-gray-400 border-opacity-30 text-[var(--text-color)]'
-              }`}
+
+
+        <div className="space-y-0">
+          {posts.map((post) => (
+            <Link 
+              key={post._id}
+              to={`/blog/${post.slug.current}`}
+              className="block group"
             >
-              {cat}
-            </button>
+              <article className="py-6 border-b border-[var(--border)]">
+                <div className="flex items-start justify-between mb-2">
+                  <h2 className="text-lg font-medium text-[var(--text)] group-hover:text-[var(--muted)] transition-colors">
+                    {post.title}
+                  </h2>
+                  <div className="text-sm text-[var(--muted)] ml-4 flex-shrink-0 text-right">
+                    <time className="block">
+                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short'
+                      })}
+                    </time>
+                    <span className="block">{getReadingTime(post.content)}</span>
+                  </div>
+                </div>
+                
+                <p className="text-[var(--muted)] line-clamp-2 leading-relaxed">
+                  {post.excerpt || 'No summary available.'}
+                </p>
+              </article>
+            </Link>
           ))}
         </div>
 
-        {/* Blog Cards */}
-        <div className="projects-grid">
-          {currentPosts.map((post) => (
-            <div key={post._id} className="project-card">
-              {post.mainImage?.asset?.url && (
-                <img
-                  src={post.mainImage.asset.url}
-                  alt={post.title}
-                  className="rounded-md mb-4"
-                  loading="lazy"
-                />
-              )}
-              <h3 className="text-xl font-semibold text-[var(--text-color)]">{post.title}</h3>
-              <p className="text-sm opacity-70 mb-1 text-[var(--text-color)]">
-                {new Date(post.publishedAt).toLocaleDateString()} ·{' '}
-                {getReadingTime(post.content)}
-              </p>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-2">
-                {(post.categories || []).map((tag, index) => (
-                  <span
-                    key={index}
-                    className="px-2 py-1 text-xs bg-[rgba(76,175,80,0.15)] text-[var(--accent-color)] rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <p className="mb-4 text-sm text-[var(--text-color)] opacity-80">
-                {post.excerpt || 'No summary available.'}
-              </p>
-              <Link
-                to={`/blog/${post.slug.current}`}
-                className="text-[var(--accent-color)] font-medium hover:underline"
-              >
-                Read More →
-              </Link>
-            </div>
-          ))}
-        </div>
-
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="flex justify-center mt-10 gap-2">
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrentPage(i + 1)}
-                className={`px-4 py-2 rounded-md ${
-                  currentPage === i + 1
-                    ? 'bg-[var(--accent-color)] text-white'
-                    : 'bg-[var(--bg-color)] text-[var(--text-color)]'
-                }`}
-              >
-                {i + 1}
-              </button>
-            ))}
-          </div>
+        {posts.length === 0 && (
+          <p className="text-[var(--muted)] text-center py-12">
+            No posts found.
+          </p>
         )}
       </div>
-    </section>
+    </div>
   )
 }
 

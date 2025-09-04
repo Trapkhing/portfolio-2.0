@@ -1,40 +1,29 @@
-import { FaGithub, FaInstagram, FaTwitter } from 'react-icons/fa'
+import { FiGithub, FiTwitter } from 'react-icons/fi'
 
 const Footer = () => {
   return (
-    <footer className="footer py-6 mt-16 bg-[var(--section-bg)] text-[var(--text-color)] shadow-[var(--shadow)]">
-      <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
-        {/* Copyright */}
-        <p className="text-sm opacity-80">
-          © {new Date().getFullYear()} EVNX. All rights reserved.
-        </p>
-
-        {/* Social Links */}
-        <div className="social-links flex gap-6 text-xl">
-          <a 
-            href="https://github.com/Trapkhing" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hover:text-[var(--accent-color)] transition-colors"
-          >
-            <FaGithub />
-          </a>
-          <a 
-            href="https://instagram.com/trap_khing" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hover:text-[var(--accent-color)] transition-colors"
-          >
-            <FaInstagram />
-          </a>
-          <a 
-            href="https://twitter.com/saintz_09" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="hover:text-[var(--twitter-blue)] transition-colors"
-          >
-            <FaTwitter />
-          </a>
+    <footer className="border-t border-[var(--border)]">
+      <div className="container py-6 md:py-8">
+        <div className="flex items-center justify-between text-sm text-[var(--muted)]">
+          <p>© {new Date().getFullYear()} Evnx</p>
+          <div className="flex gap-4 md:gap-6">
+            <a 
+              href="https://github.com/Trapkhing" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-[var(--text)] transition-colors"
+            >
+              <FiGithub size={16} />
+            </a>
+            <a 
+              href="https://twitter.com/saintz_09" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:text-[var(--text)] transition-colors"
+            >
+              <FiTwitter size={16} />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
